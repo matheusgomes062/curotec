@@ -1,12 +1,17 @@
 <template lang="pug">
-div
+div.container-md
+  div(class="title")
+    h1(@click="isPostDetail = false") Posts APP
+  button(@click="addPost" type="button" class="btn btn-primary") Add Post
+  
   Post(v-for="item in posts"
     :key="item.id"
     :title="item.title"
     :id="item.id"
     @goToPostDetails="goToPostDetails($event)"
     v-if="!isPostDetail")
-  PostDetail(v-if="isPostDetail" :id="postDetailId")
+
+  PostDetail(v-if="isPostDetail" :id="postDetailId" :action="action")
 </template>
 
 <script>
@@ -24,7 +29,8 @@ export default {
     return {
       posts: [],
       isPostDetail: false,
-      postDetailId: null
+      postDetailId: null,
+      action: null
     }
   },
   created() {
@@ -39,6 +45,11 @@ export default {
     goToPostDetails(id) {
       this.postDetailId = id;
       this.isPostDetail = true;
+      this.action = '';
+    },
+    addPost() {
+      this.isPostDetail = true;
+      this.action = 'addPost';
     }
   }
 
@@ -46,5 +57,13 @@ export default {
 </script>
 
 <style>
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  cursor: pointer;
+}
 
 </style>
