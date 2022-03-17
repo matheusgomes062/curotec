@@ -1,28 +1,45 @@
 <template lang="pug">
 .card(style='width: 18rem;')
-  img.card-img-top(src='...' alt='...')
   .card-body
-    h5.card-title Card title
-    p.card-text Some quick example text to build on the card title and make up the bulk of the card's content.
-    a.btn.btn-primary(href='#') Go somewhere
+    div
+      h5.card-title(@click="goToPostDetails") {{ title }}
 </template>
 
 <script>
 export default {
   name: 'Post',
   props: {
-    propC: {
+    title: {
       type: String,
-      required: true
+      required: true,
+      default: ''
     },
+    id: {
+      type: Number,
+      required: true,
+      default: 0
+    }
   },
   data() {
     return {
+    }
+  },
+  methods: {
+    goToPostDetails() {
+      this.$emit('goToPostDetails', this.id)
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+
+a {
+  line-height: 1rem;
+}
+
+h5 {
+  cursor: pointer;
+}
 
 </style>
